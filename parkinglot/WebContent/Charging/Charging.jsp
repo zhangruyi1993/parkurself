@@ -6,6 +6,10 @@
 
 <%
   response.setHeader("refresh","30");
+  String cha;
+  cha=parkinglot.User.GetChar((String)request.getSession().getAttribute("lotid"));
+  String[] charge=cha.split(" ");
+  int tota=charge.length;
 %>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -48,19 +52,49 @@
       }
       .row.content {height:auto;} 
     }
-  </style>
+  </style>  
 </head>
 <body>
-<%@ include file="../InNavbar.jsp" %>
+<%@ include file="../InNavbar.jsp"%>
 <div class="container-fluid text-center">    
   <div class="row content">  
     <%@ include file="../InLeft.jsp" %>
-    <div class="col-sm-10 text-left"> 
-      <h1>Charging</h1>
-      <p>This is the charging page and we are working on it!</p>
+    <div class="col-sm-10 text-left">
+    <h1>Charging</h1>
+      <div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Car Number</th>
+              <th>Spot Number</th>
+              <th>Price</th>
+              <th>Enter Time</th>
+              <th>Estimate Fee</th>
+            </tr>
+          </thead>
+          <tbody id="tBody">
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
+<script>
+      var cha="<%=cha%>";
+      var charge=cha.trim().split(" ");
+      var tot="<%=tota%>";
+      var con="";
+      var i=0;
+      
+      while(i<tot-4)
+      {
+    	  con+="<tr><td>"+charge[i]+"</td><td>"+charge[i+1]+
+  	    "</td><td>"+charge[i+2]+"</td><td>"+charge[i+3]+"</td><td>"+charge[i+4]+"</td></tr>";
+    	  i=i+5;
+      }
+      
+      document.getElementById("tBody").innerHTML=con;
+    </script>
 <%@ include file="../Foot.jsp" %>
 </body>
 </html>

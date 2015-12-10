@@ -74,13 +74,13 @@
     
       <h1>UserInfo</h1>
       <hr>
-      <p>Username : <% out.print(username); %><div><a type="button" class="btn btn-primary" href="ChangePassword.jsp">Change Password</a></div></p>
-      <p>Parking lot name : <% out.print(request.getSession().getAttribute("lotname"));%></p>
-      <p>Number of present reservation : 
+      <p><strong>Username : </strong><% out.print(username); %><div><a type="button" class="btn btn-primary" href="ChangePassword.jsp">Change Password</a></div></p>
+      <p><strong>Parking lot name : </strong><% out.print(request.getSession().getAttribute("lotname"));%></p>
+      <p><strong>Number of present reservation : </strong>
       <%
         try 
   	    {
-  		    out.print(parkinglot.User.GetReserve((String)request.getSession().getAttribute("lotid")));
+  		    out.println(parkinglot.User.GetReserve((String)request.getSession().getAttribute("lotid")));
   	    } 
   	    catch (Exception e) 
   	    {
@@ -89,6 +89,46 @@
   	    }
       %>
       </p>
+      <a href="../History/History.jsp"><strong>Income : </strong></a> 
+        <p><a href="../History/Daily.jsp">Daily : </a>
+        <%
+        try 
+  	    {
+  		    out.println(parkinglot.User.GetIncome((String)request.getSession().getAttribute("lotid"),"d"));
+  	    } 
+  	    catch (Exception e) 
+  	    {
+  	    	// TODO Auto-generated catch block
+  		    e.printStackTrace();
+  	    }
+        %>
+        </p>
+        <p><a href="../History/Monthly.jsp">Monthly : </a>
+        <%
+        try 
+  	    {
+  		    out.println(parkinglot.User.GetIncome((String)request.getSession().getAttribute("lotid"),"m"));
+  	    } 
+  	    catch (Exception e) 
+  	    {
+  	    	// TODO Auto-generated catch block
+  		    e.printStackTrace();
+  	    }
+        %>
+        </p>
+        <p><a href="../History/Yearly.jsp">Yearly : </a>
+        <%
+        try 
+  	    {
+  		    out.println(parkinglot.User.GetIncome((String)request.getSession().getAttribute("lotid"),"y"));
+  	    } 
+  	    catch (Exception e) 
+  	    {
+  	    	// TODO Auto-generated catch block
+  		    e.printStackTrace();
+  	    }
+        %>
+        </p>
     </div>
   </div>
 </div>

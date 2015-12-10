@@ -79,6 +79,8 @@ public class CheckLogin extends HttpServlet {
 			session.setAttribute("close", item.get("ClosingTime"));
 			session.setAttribute("price", item.get("Price"));
 			session.setAttribute("changepsw", null);
+			session.setAttribute("changename", null);
+			session.setAttribute("changetotal", null);
 			response.sendRedirect("home.jsp");
 		}
 		else
