@@ -58,11 +58,6 @@
   </style>
 </head>
 <body>
-
-<script>
-
-</script>
-
 <%@ include file="Navbar.jsp" %>
 <div class="container-fluid text-center">    
   <div class="row content">  

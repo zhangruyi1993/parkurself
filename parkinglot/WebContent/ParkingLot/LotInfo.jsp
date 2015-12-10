@@ -6,6 +6,10 @@
 
 <%
   response.setHeader("refresh","30");
+  String changename=(String)request.getSession().getAttribute("changename");
+  session.setAttribute("changename", null);
+  String changetotal=(String)request.getSession().getAttribute("changetotal");
+  session.setAttribute("changetotal", null);
 %>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -55,9 +59,26 @@
 <div class="container-fluid text-center">    
   <div class="row content">  
     <%@ include file="../InLeft.jsp" %>
-    <div class="col-sm-10 text-left"> 
-      <h1>LotInfo</h1>
-      <p>This is the LotInfo page and we are working on it!</p>
+    <div class="col-sm-10 text-left">
+    
+    <div class="alert alert-success" id="success" style="display:none">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong>Success!</strong>
+    </div>
+    
+    <script>
+      var changename="<%=changename%>";
+      var changetotal="<%=changetotal%>";
+      if(changename=="success"||changetotal=="success")
+    	  document.getElementById("success").style.display="block";
+    </script>
+    
+      <h1>Lot Information</h1>
+      <hr>
+      <p><strong>Lot Name : </strong><% out.print(request.getSession().getAttribute("lotname")); %><div><a type="button" class="btn btn-primary" href="ChangeName.jsp">Change Name</a></div></p>
+      <p><strong>Location : </strong><% out.print(request.getSession().getAttribute("latitude")+","+request.getSession().getAttribute("longitude"));%></p>
+      <p><strong>Open Time : </strong><% out.print(request.getSession().getAttribute("open")+"-"+request.getSession().getAttribute("close"));%></p>
+      <p><strong>Total Number of Parking Spots : </strong><% out.print(request.getSession().getAttribute("total")); %><div><a type="button" class="btn btn-primary" href="ChangeTotal.jsp">Change Number</a></div></p>
     </div>
   </div>
 </div>

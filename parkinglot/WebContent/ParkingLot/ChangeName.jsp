@@ -6,7 +6,7 @@
 
 <%
   response.setHeader("refresh","60");
-  String changepsw=null;
+  String changename=null;
 %>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -63,8 +63,8 @@
         <strong>Warning!</strong> Wrong Username or Password!
       </div>
     
-      <form action="ChangePassword.jsp" method="get" role="form">
-        <h2 class="form-loginin-heading">Change Password</h2>
+      <form action="ChangeName.jsp" method="get" role="form">
+        <h2 class="form-loginin-heading">Change Lot Name</h2>
          <hr>
          <div class="form-group">
         <label for="Username" class="sr-only">Username</label>
@@ -75,8 +75,8 @@
         <input type="password"  name="password" class="form-control" placeholder="Password" required>
         </div>
          <div class="form-group">
-        <label for="inputPassword" class="sr-only">NewPassword</label>
-        <input type="password"  name="newpassword" class="form-control" placeholder="New Password" required>
+        <label for="inputPassword" class="sr-only">New Lot Name</label>
+        <input type="text"  name="lotname" class="form-control" placeholder="New Lot Name" required>
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit" name="send_button">Change</button>
       </form>
@@ -84,23 +84,24 @@
     <% 
     String inusername=request.getParameter("username");
 	String inpassword=request.getParameter("password");
-	String newpassword=request.getParameter("newpassword");
-	request.getSession(true);	
+	String lotname=request.getParameter("lotname");
+	request.getSession(true);
 	try 
 	{
-		if(inusername.equals(null)||inpassword.equals(null)||newpassword.equals(null))
+		if(inusername.equals(null)||inpassword.equals(null)||lotname.equals(null))
 		{
-			session.setAttribute("changepsw", null);
+			session.setAttribute("changename", null);
 		}
 		else if(parkinglot.User.ChkLogin(inusername, inpassword)!=null)
 		{
-			parkinglot.User.ModifyPassword(username, newpassword);
-			session.setAttribute("changepsw", "success");
-			response.sendRedirect("UserInfo.jsp");
+			parkinglot.User.ModifyLot(lotid, lotname,"n");
+			session.setAttribute("changename", "success");
+			session.setAttribute("lotname",lotname);
+			response.sendRedirect("LotInfo.jsp");
 		}
 		else
-			session.setAttribute("changepsw", "fail");
-		changepsw=(String)session.getAttribute("changepsw");
+			session.setAttribute("changename", "fail");
+		changename=(String)session.getAttribute("changename");
 	} 
 	catch (Exception e) 
 	{
@@ -109,16 +110,14 @@
 	}
     %>
     <script>
-      var changepsw="<%=changepsw%>";
-      if(changepsw=="null")
+      var changename="<%=changename%>";
+      if(changename=="null")
       {
     	  document.getElementById("fail").style.display="none";
-    	  
       }
-      else if(changepsw=="fail")
+      else if(changename=="fail")
       {
     	  document.getElementById("fail").style.display="block";
-    	  
       }
     </script>
     </div>
